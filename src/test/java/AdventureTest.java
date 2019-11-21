@@ -11,9 +11,16 @@ public class AdventureTest {
     private Adventure adventure;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp(){
         adventure = new Adventure(new Durance(new Weapon("Katana of Hoshi", 10, 5.0f,
-                "Blade received by Durance from the Lord of Stars"), new Random()));
+                "Blade received by Durance from the Lord of Stars"), new Random()){
+            @Override
+            public boolean lostEnchantment() {
+                return false;
+            }
+        }){
+
+        };
     }
 
     @Test
@@ -95,5 +102,23 @@ public class AdventureTest {
         }
     }
 
+    @Test
+    public void an_enchantment_can_be_lost_if_enchant_called() {
+        Adventure new_adventure = new Adventure(new Durance(new Weapon("Katana of Hoshi", 10, 5.0f,
+                "Blade received by Durance from the Lord of Stars"), new Random()));
+        new_adventure.setRandomisation(1);
+        new_adventure.getDurance().enchant();
+        int i;
+        for(i = 0; i <= 100; i++) {
+            new_adventure.getDurance().enchant();
+            if (new_adventure.getDurance().enchanted == false)
+                break;
+        }
+            assertFalse("Enchant was called 10 times and an enchantment was never lost",
+                    new_adventure.getDurance().enchanted);
+        }
+    }
 
-}
+
+
+
