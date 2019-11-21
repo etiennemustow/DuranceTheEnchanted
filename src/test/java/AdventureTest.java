@@ -4,8 +4,7 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 public class AdventureTest {
 
@@ -86,13 +85,14 @@ public class AdventureTest {
     public void an_enchantment_wont_be_called_if_already_enchanted() {
         adventure.setRandomisation(1);
         adventure.getDurance().enchant();
-        adventure.setRandomisation(2);
         adventure.getDurance().enchant();
-        assertFalse("Ice Katana was called when it shouldn't have", adventure.getDurance().describeWeapon() == ("Quick Katana of Hoshi\n" +
-                "10 attack\n" +
-                "5.0 attack speed \n" +
-                "+5 Agility\n" +
-                "Blade received by Durance from the Lord of Stars"));
+        for(int i = 0; i < 100; i++){
+            assertFalse("Ice Katana was called when it's already in use", adventure.getDurance().describeWeapon() == ("Ice Katana of Hoshi\n" +
+                    "10 attack\n" +
+                    "5.0 attack speed \n" +
+                    "+5 Ice Damage\n" +
+                    "Blade received by Durance from the Lord of Stars"));
+        }
     }
 
 

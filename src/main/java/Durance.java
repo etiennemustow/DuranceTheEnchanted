@@ -4,7 +4,7 @@ import java.util.Random;
 public class Durance{
     Weapon weapon;
     String current_enchantment = "";
-    Enchantment previous_enchantment;
+    Enchantments previous_enchantment;
     Enchantments enchantment;
     Random rand;
     Boolean enchanted = false;
@@ -24,6 +24,7 @@ public class Durance{
         getRandomEnchantment(enchantments);
         current_enchantment = enchantment.attributes;
         enchanted = true;
+        previous_enchantment = enchantment;
     }
 
     public void setRand(int seed){
@@ -32,6 +33,8 @@ public class Durance{
 
     private void getRandomEnchantment(List<Enchantments> enchantments) {
         setEnchantment(enchantments, rand.nextInt(enchantments.size()));
+        while(previous_enchantment == enchantment)
+            setEnchantment(enchantments, rand.nextInt(enchantments.size()));
     }
 
     public void setEnchantment(List<Enchantments> enchantments, int index) {
@@ -40,16 +43,16 @@ public class Durance{
 
     public String describeWeapon(){
         if (!enchanted)
-          return weapon.getName() + "\n"
-                + weapon.getAttackPower() + " attack\n"
-                + weapon.getAttackSpeed() + " attack speed \n"
-                + current_enchantment + "\n"
-                + weapon.getDescription();
-        return enchantment.prefix + weapon.getName() + "\n"
-                + weapon.getAttackPower() + " attack\n"
-                + weapon.getAttackSpeed() + " attack speed \n"
-                + current_enchantment + "\n"
-                + weapon.getDescription();
+          return getDescription();
+        return enchantment.prefix + getDescription();
+    }
+
+    private String getDescription() {
+        return weapon.getName() + "\n"
+              + weapon.getAttackPower() + " attack\n"
+              + weapon.getAttackSpeed() + " attack speed \n"
+              + current_enchantment + "\n"
+              + weapon.getDescription();
     }
 }
 
