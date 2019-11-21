@@ -4,8 +4,10 @@ import java.util.Random;
 public class Durance{
     Weapon weapon;
     String current_enchantment = "";
+    Enchantment previous_enchantment;
     Enchantments enchantment;
     Random rand;
+    Boolean enchanted = false;
 
 
     public Durance(Weapon weapon, Random rand) {
@@ -20,8 +22,8 @@ public class Durance{
     public void enchant(){
         List<Enchantments> enchantments = Enchantments.listOfEnchantments;
         getRandomEnchantment(enchantments);
-        weapon.setName(enchantment.prefix + weapon.getName());
         current_enchantment = enchantment.attributes;
+        enchanted = true;
     }
 
     public void setRand(int seed){
@@ -37,7 +39,13 @@ public class Durance{
     }
 
     public String describeWeapon(){
-        return weapon.getName() + "\n"
+        if (!enchanted)
+          return weapon.getName() + "\n"
+                + weapon.getAttackPower() + " attack\n"
+                + weapon.getAttackSpeed() + " attack speed \n"
+                + current_enchantment + "\n"
+                + weapon.getDescription();
+        return enchantment.prefix + weapon.getName() + "\n"
                 + weapon.getAttackPower() + " attack\n"
                 + weapon.getAttackSpeed() + " attack speed \n"
                 + current_enchantment + "\n"
