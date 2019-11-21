@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class Durance{
     Weapon weapon;
-    String enchantment;
+    String enchantment = "";
 
     public Durance(Weapon weapon) {
         this.weapon = weapon;
@@ -15,8 +15,8 @@ public class Durance{
 
     public String describeWeapon(){
         return weapon.getName() + "\n"
-                + weapon.getAttackPower() + "attack\n"
-                + weapon.getAttackSpeed() + "attack speed \n"
+                + weapon.getAttackPower() + " attack\n"
+                + weapon.getAttackSpeed() + " attack speed \n"
                 + enchantment + "\n"
                 + weapon.getDescription();
     }
